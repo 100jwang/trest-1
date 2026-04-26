@@ -2,106 +2,22 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>점심 메뉴 추천</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f5f5f5;
-      padding: 50px;
-    }
-    h1 {
-      color: #333;
-    }
-    button {
-      padding: 15px 30px;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      background-color: #ffcc00;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #ffdb4d;
-    }
-    #result {
-      margin-top: 40px;
-      font-size: 24px;
-      color: #222;
-    }
-    .emoji {
-      font-size: 60px;
-      margin-top: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <div class="theme-toggle">
+    <button id="theme-btn" onclick="toggleTheme()">🌙 다크 모드</button>
+  </div>
+
   <h1>🍱 오늘 점심 뭐 먹지?</h1>
-  <button onclick="recommendMenu()">점심 추천 받기</button>
+  <button class="recommend-btn" onclick="recommendMenu()">점심 추천 받기</button>
 
   <div id="result"></div>
   <div class="emoji" id="emoji"></div>
 
-  <script>
-    const menus = [
-      {name: "김치찌개", emoji: "🍲"},
-      {name: "된장찌개", emoji: "🍲"},
-      {name: "순두부찌개", emoji: "🍲"},
-      {name: "부대찌개", emoji: "🍲"},
-      {name: "삼겹살", emoji: "🥓"},
-      {name: "불고기", emoji: "🍖"},
-      {name: "제육볶음", emoji: "🍖"},
-      {name: "돈까스", emoji: "🍛"},
-      {name: "치킨", emoji: "🍗"},
-      {name: "닭갈비", emoji: "🍗"},
-      {name: "비빔밥", emoji: "🥗"},
-      {name: "돌솥비빔밥", emoji: "🥗"},
-      {name: "김밥", emoji: "🍙"},
-      {name: "라면", emoji: "🍜"},
-      {name: "짜장면", emoji: "🍜"},
-      {name: "짬뽕", emoji: "🍜"},
-      {name: "볶음밥", emoji: "🍚"},
-      {name: "오므라이스", emoji: "🍳"},
-      {name: "카레", emoji: "🍛"},
-      {name: "햄버거", emoji: "🍔"},
-      {name: "피자", emoji: "🍕"},
-      {name: "샌드위치", emoji: "🥪"},
-      {name: "샐러드", emoji: "🥗"},
-      {name: "쌀국수", emoji: "🍜"},
-      {name: "우동", emoji: "🍜"},
-      {name: "소바", emoji: "🍜"},
-      {name: "초밥", emoji: "🍣"},
-      {name: "회덮밥", emoji: "🍣"},
-      {name: "떡볶이", emoji: "🌶️"},
-      {name: "순대", emoji: "🌭"},
-      {name: "튀김", emoji: "🍤"},
-      {name: "닭강정", emoji: "🍗"},
-      {name: "갈비탕", emoji: "🍲"},
-      {name: "설렁탕", emoji: "🍲"},
-      {name: "곰탕", emoji: "🍲"},
-      {name: "냉면", emoji: "🍜"},
-      {name: "밀면", emoji: "🍜"},
-      {name: "파스타", emoji: "🍝"},
-      {name: "리조또", emoji: "🍚"},
-      {name: "샤브샤브", emoji: "🍲"},
-      {name: "족발", emoji: "🍖"},
-      {name: "보쌈", emoji: "🍖"},
-      {name: "칼국수", emoji: "🍜"},
-      {name: "잔치국수", emoji: "🍜"},
-      {name: "오징어볶음", emoji: "🦑"},
-      {name: "낙지볶음", emoji: "🐙"},
-      {name: "고등어구이", emoji: "🐟"},
-      {name: "연어덮밥", emoji: "🍣"},
-      {name: "덮밥", emoji: "🍚"}
-    ];
-
-    function recommendMenu() {
-      const random = Math.floor(Math.random() * menus.length);
-      document.getElementById("result").innerText = menus[random].name;
-      document.getElementById("emoji").innerText = menus[random].emoji;
-    }
-  </script>
-
+  <script src="main.js"></script>
 </body>
 </html>
