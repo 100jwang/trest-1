@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>댓글</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="top-nav">
+    <a href="index.html" class="home-btn">🏠 홈으로</a>
+    <button id="theme-btn" onclick="toggleTheme()">🌙 다크 모드</button>
+  </div>
+
+  <section class="comment-section">
+    <h2>💬 댓글</h2>
+    <div id="disqus_thread"></div>
+    <script>
+        (function() { 
+        var d = document, s = d.createElement('script');
+        s.src = 'https://what-to-eat-2.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </section>
+
+  <script src="shared.js"></script>
+</body>
+</html>

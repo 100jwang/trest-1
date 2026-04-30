@@ -3,91 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>점심 메뉴 추천</title>
+  <title>종합 서비스 대시보드</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 </head>
 <body>
-
   <div class="top-nav">
-    <button id="animal-test-btn" onclick="openModal()">🐶 동물상 테스트</button>
     <button id="theme-btn" onclick="toggleTheme()">🌙 다크 모드</button>
   </div>
 
-  <h1>🍱 오늘 점심 뭐 먹지?</h1>
-  <button class="recommend-btn" onclick="recommendMenu()">점심 추천 받기</button>
-
-  <div id="result"></div>
-  <div class="emoji" id="emoji"></div>
-
-  <!-- 동물상 테스트 모달 -->
-  <div id="animal-modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2>🐶 강아지 vs 고양이 동물상 테스트 🐱</h2>
-      <p>사진을 업로드하여 당신의 동물상을 확인해보세요!</p>
-      
-      <div class="upload-area" onclick="document.getElementById('image-upload').click()">
-        <p id="upload-text">📸 사진 업로드 (클릭)</p>
-        <img id="preview-image" src="" style="display:none; max-width: 100%; border-radius: 10px;">
-      </div>
-      <input type="file" id="image-upload" accept="image/*" style="display:none;" onchange="handleImageUpload(event)">
-      
-      <div id="loading" style="display:none; margin: 20px 0;">
-        <div class="loader"></div>
-        <p>AI가 분석 중입니다...</p>
-      </div>
-
-      <div id="prediction-result" style="margin-top: 20px;"></div>
+  <div class="container">
+    <h1>🚀 어떤 서비스를 이용할까요?</h1>
+    
+    <div class="dashboard">
+      <a href="lunch.html" class="nav-card" target="_blank">
+        <span class="icon">🍱</span>
+        <span>오늘 점심 뭐 먹지?</span>
+      </a>
+      <a href="animal.html" class="nav-card" target="_blank">
+        <span class="icon">🐶</span>
+        <span>동물상 테스트</span>
+      </a>
+      <a href="contact.html" class="nav-card" target="_blank">
+        <span class="icon">🤝</span>
+        <span>제휴 문의</span>
+      </a>
+      <a href="comments.html" class="nav-card" target="_blank">
+        <span class="icon">💬</span>
+        <span>댓글</span>
+      </a>
     </div>
   </div>
 
-  <section class="contact-section">
-    <hr>
-    <h2>🤝 제휴 문의</h2>
-    <form action="https://formspree.io/f/xpqkeklz" method="POST" class="contact-form">
-      <div class="form-group">
-        <label for="name">회사명 또는 성함</label>
-        <input type="text" id="name" name="name" placeholder="성함을 입력해주세요" required>
-      </div>
-      <div class="form-group">
-        <label for="email">이메일 주소</label>
-        <input type="email" id="email" name="_replyto" placeholder="example@email.com" required>
-      </div>
-      <div class="form-group">
-        <label for="message">문의 내용</label>
-        <textarea id="message" name="message" rows="5" placeholder="제휴 문의 내용을 입력해주세요" required></textarea>
-      </div>
-      <button type="submit" class="submit-btn">문의 보내기</button>
-    </form>
-  </section>
-
-  <section class="comment-section">
-    <hr>
-    <h2>💬 댓글</h2>
-    <div id="disqus_thread"></div>
-    <script>
-        /**
-        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-        /*
-        var disqus_config = function () {
-        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-        };
-        */
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://what-to-eat-2.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </section>
-
-  <script src="main.js"></script>
-  <script src="animal-test.js"></script>
+  <script src="shared.js"></script>
 </body>
 </html>

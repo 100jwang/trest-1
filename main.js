@@ -56,6 +56,8 @@ function recommendMenu() {
   const resultDiv = document.getElementById("result");
   const emojiDiv = document.getElementById("emoji");
   
+  if (!resultDiv || !emojiDiv) return;
+
   // 이전과 중복되지 않도록 필터링
   let availableMenus = menus.filter(m => m.name !== lastMenu);
   const random = Math.floor(Math.random() * availableMenus.length);
@@ -73,17 +75,4 @@ function recommendMenu() {
     resultDiv.style.opacity = "1";
     emojiDiv.style.transform = "scale(1)";
   }, 100);
-}
-
-function toggleTheme() {
-  const body = document.body;
-  const btn = document.getElementById("theme-btn");
-  
-  if (body.getAttribute("data-theme") === "dark") {
-    body.removeAttribute("data-theme");
-    btn.innerText = "🌙 다크 모드";
-  } else {
-    body.setAttribute("data-theme", "dark");
-    btn.innerText = "☀️ 라이트 모드";
-  }
 }

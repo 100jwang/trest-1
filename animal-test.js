@@ -5,25 +5,18 @@ let model, maxPredictions;
 async function initModel() {
     if (model) return;
     try {
+        const loading = document.getElementById("loading");
+        if (loading) loading.style.display = "block";
+        
         const modelURL = MODEL_URL + "model.json";
         const metadataURL = MODEL_URL + "metadata.json";
         model = await tmImage.load(modelURL, metadataURL);
         maxPredictions = model.getTotalClasses();
+        
+        if (loading) loading.style.display = "none";
     } catch (e) {
         console.error("Model loading failed:", e);
     }
-}
-
-// 모달 열기
-function openModal() {
-    document.getElementById("animal-modal").style.display = "block";
-    initModel();
-}
-
-// 모달 닫기
-function closeModal() {
-    document.getElementById("animal-modal").style.display = "none";
-    resetTest();
 }
 
 // 테스트 초기화
@@ -128,13 +121,5 @@ async function predict() {
         console.error("Prediction failed:", error);
         loading.style.display = "none";
         resultArea.innerHTML = "<p>분석 중 오류가 발생했습니다. 다시 시도해주세요.</p>";
-    }
-}
-
-// 모달 외곽 클릭 시 닫기
-window.onclick = function(event) {
-    const modal = document.getElementById("animal-modal");
-    if (event.target == modal) {
-        closeModal();
     }
 }
