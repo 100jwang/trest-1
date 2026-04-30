@@ -41,13 +41,14 @@ async function handleImageUpload(event) {
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = async function(e) {
+    reader.onload = function(e) {
         const preview = document.getElementById("preview-image");
+        preview.onload = async function() {
+            await predict();
+        };
         preview.src = e.target.result;
         preview.style.display = "block";
         document.getElementById("upload-text").style.display = "none";
-        
-        await predict();
     };
     reader.readAsDataURL(file);
 }
@@ -69,26 +70,31 @@ async function predict() {
         const prediction = await model.predict(image);
         loading.style.display = "none";
 
+        if (!prediction || prediction.length === 0) {
+            resultArea.innerHTML = "<p>분석 결과를 가져올 수 없습니다.</p>";
+            return;
+        }
+
         prediction.sort((a, b) => b.probability - a.probability);
         
         const topResult = prediction[0];
         const resultEmoji = (topResult.className === "강아지" || topResult.className.toLowerCase().includes("dog")) ? "🐶" : "🐱";
         
-        let resultHTML = \`<h3>당신은 \${resultEmoji} \${topResult.className}상입니다!</h3>\`;
+        let resultHTML = `<h3>당신은 ${resultEmoji} ${topResult.className}상입니다!</h3>`;
         
         prediction.forEach(p => {
             const percentage = (p.probability * 100).toFixed(0);
             const isDog = (p.className === "강아지" || p.className.toLowerCase().includes("dog"));
             const barColor = isDog ? "#ffcc00" : "#ff6b6b";
             
-            resultHTML += \`
+            resultHTML += `
                 <div class="bar-container">
-                    <span class="bar-label">\${p.className} (\${percentage}%)</span>
+                    <span class="bar-label">${p.className} (${percentage}%)</span>
                     <div class="bar-outer">
-                        <div class="bar-inner" style="width: \${percentage}%; background-color: \${barColor};"></div>
+                        <div class="bar-inner" style="width: ${percentage}%; background-color: ${barColor};"></div>
                     </div>
                 </div>
-            \`;
+            `;
         });
         
         resultArea.innerHTML = resultHTML;
