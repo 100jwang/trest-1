@@ -78,9 +78,13 @@ async function predict() {
         prediction.sort((a, b) => b.probability - a.probability);
         
         const topResult = prediction[0];
-        const resultEmoji = (topResult.className === "강아지" || topResult.className.toLowerCase().includes("dog")) ? "🐶" : "🐱";
+        let topClassName = topResult.className;
+        if (topClassName.toUpperCase() === "DOG") topClassName = "강아지";
+        if (topClassName.toUpperCase() === "CAT") topClassName = "고양이";
+
+        const resultEmoji = (topClassName === "강아지" || topClassName.toLowerCase().includes("dog")) ? "🐶" : "🐱";
         
-        let resultHTML = `<h3>당신은 ${resultEmoji} ${topResult.className}상입니다!</h3>`;
+        let resultHTML = `<h3 style="text-align: center; margin-bottom: 20px;">당신은 ${resultEmoji} ${topClassName}상입니다!</h3>`;
         
         prediction.forEach(p => {
             const percentage = (p.probability * 100).toFixed(0);
