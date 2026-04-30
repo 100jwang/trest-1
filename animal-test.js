@@ -84,12 +84,16 @@ async function predict() {
         
         prediction.forEach(p => {
             const percentage = (p.probability * 100).toFixed(0);
-            const isDog = (p.className === "강아지" || p.className.toLowerCase().includes("dog"));
+            let className = p.className;
+            if (className.toUpperCase() === "DOG") className = "강아지";
+            if (className.toUpperCase() === "CAT") className = "고양이";
+            
+            const isDog = (className === "강아지" || className.toLowerCase().includes("dog"));
             const barColor = isDog ? "#ffcc00" : "#ff6b6b";
             
             resultHTML += `
                 <div class="bar-container">
-                    <span class="bar-label">${p.className} (${percentage}%)</span>
+                    <span class="bar-label">${className} (${percentage}%)</span>
                     <div class="bar-outer">
                         <div class="bar-inner" style="width: ${percentage}%; background-color: ${barColor};"></div>
                     </div>
