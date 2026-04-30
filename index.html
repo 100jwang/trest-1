@@ -18,6 +18,26 @@
   <div id="result"></div>
   <div class="emoji" id="emoji"></div>
 
+  <section class="contact-section">
+    <hr>
+    <h2>🤝 제휴 문의</h2>
+    <form action="https://formspree.io/f/xpqkeklz" method="POST" class="contact-form">
+      <div class="form-group">
+        <label for="name">회사명 또는 성함</label>
+        <input type="text" id="name" name="name" placeholder="성함을 입력해주세요" required>
+      </div>
+      <div class="form-group">
+        <label for="email">이메일 주소</label>
+        <input type="email" id="email" name="_replyto" placeholder="example@email.com" required>
+      </div>
+      <div class="form-group">
+        <label for="message">문의 내용</label>
+        <textarea id="message" name="message" rows="5" placeholder="제휴 문의 내용을 입력해주세요" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">문의 보내기</button>
+    </form>
+  </section>
+
   <script src="main.js"></script>
 </body>
 </html>
