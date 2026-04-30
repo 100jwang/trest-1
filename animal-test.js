@@ -106,6 +106,24 @@ async function predict() {
         });
         
         resultArea.innerHTML = resultHTML;
+
+        // 결과 공유 버튼 추가
+        const shareBtn = document.createElement("button");
+        shareBtn.innerText = "🔗 결과 복사하기";
+        shareBtn.style.marginTop = "20px";
+        shareBtn.style.padding = "10px 20px";
+        shareBtn.style.borderRadius = "10px";
+        shareBtn.style.border = "none";
+        shareBtn.style.backgroundColor = "#444";
+        shareBtn.style.color = "#fff";
+        shareBtn.style.cursor = "pointer";
+        shareBtn.onclick = () => {
+            const text = `나의 동물상 테스트 결과: 당신은 ${resultEmoji} ${topClassName}상입니다! #동물상테스트 #AI분석`;
+            navigator.clipboard.writeText(text).then(() => {
+                alert("결과가 클립보드에 복사되었습니다!");
+            });
+        };
+        resultArea.appendChild(shareBtn);
     } catch (error) {
         console.error("Prediction failed:", error);
         loading.style.display = "none";

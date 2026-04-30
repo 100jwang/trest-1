@@ -50,10 +50,29 @@ const menus = [
   {name: "덮밥", emoji: "🍚"}
 ];
 
+let lastMenu = "";
+
 function recommendMenu() {
-  const random = Math.floor(Math.random() * menus.length);
-  document.getElementById("result").innerText = menus[random].name;
-  document.getElementById("emoji").innerText = menus[random].emoji;
+  const resultDiv = document.getElementById("result");
+  const emojiDiv = document.getElementById("emoji");
+  
+  // 이전과 중복되지 않도록 필터링
+  let availableMenus = menus.filter(m => m.name !== lastMenu);
+  const random = Math.floor(Math.random() * availableMenus.length);
+  const selected = availableMenus[random];
+  
+  lastMenu = selected.name;
+  
+  // 간단한 애니메이션 효과
+  resultDiv.style.opacity = "0";
+  emojiDiv.style.transform = "scale(0.5)";
+  
+  setTimeout(() => {
+    resultDiv.innerText = selected.name;
+    emojiDiv.innerText = selected.emoji;
+    resultDiv.style.opacity = "1";
+    emojiDiv.style.transform = "scale(1)";
+  }, 100);
 }
 
 function toggleTheme() {
