@@ -5,33 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>동물상 테스트</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 </head>
-<body onload="initModel()">
+<body>
   <div class="top-nav">
     <a href="index.html" class="home-btn">🏠 홈으로</a>
     <button id="theme-btn" onclick="toggleTheme()">🌙 다크 모드</button>
   </div>
 
-  <div class="container">
-    <h2>🐶 강아지 vs 고양이 동물상 테스트 🐱</h2>
-    <p>사진을 업로드하여 당신의 동물상을 확인해보세요!</p>
-    
-    <div class="upload-area" onclick="document.getElementById('image-upload').click()">
-      <p id="upload-text">📸 사진 업로드 (클릭)</p>
-      <img id="preview-image" src="" style="display:none; max-width: 100%; border-radius: 10px;">
-    </div>
-    <input type="file" id="image-upload" accept="image/*" style="display:none;" onchange="handleImageUpload(event)">
-    
-    <div id="loading" style="display:none; margin: 20px 0;">
-      <div class="loader"></div>
-      <p>AI가 분석 중입니다...</p>
-    </div>
+  <main class="container">
+    <h1>🐶 나는 강아지상? 고양이상?</h1>
+    <p>사진을 업로드하면 AI가 분석해줘요!</p>
 
-    <div id="prediction-result" style="margin-top: 20px;"></div>
-  </div>
+    <input type="file" id="imageUpload" accept="image/*">
+    <button class="recommend-btn" onclick="predictAnimal()">동물상 분석하기</button>
 
+    <div id="loading" style="display:none; margin-top:20px;">🔍 분석 중...</div>
+    <div id="resultArea" style="margin-top:20px;"></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest"></script>
   <script src="shared.js"></script>
   <script src="animal-test.js"></script>
 </body>

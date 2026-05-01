@@ -20,6 +20,7 @@ const DINNER_MENUS = [
 
 const SEARCH_RADIUS_METERS = 1500;
 const MAX_RESULTS = 6;
+const OVERPASS_API_URL = "https://overpass-api.de/api/interpreter";
 
 const state = { lastMenu: "", selectedMenu: null };
 
@@ -30,13 +31,20 @@ const ui = {
   nearbyBtn: () => document.getElementById("find-nearby-btn"),
 };
 
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 function recommendMenu() {
   const candidates = DINNER_MENUS.filter((menu) => menu.name !== state.lastMenu);
   const selected = candidates[Math.floor(Math.random() * candidates.length)];
-
   state.lastMenu = selected.name;
   state.selectedMenu = selected;
-
   renderMenu(selected);
 }
 
@@ -85,7 +93,7 @@ async function fetchPlaces(menuName, lat, lng) {
     out center tags;
   `;
 
-  const response = await fetch("https://overpass-api.de/api/interpreter", {
+  const response = await fetch(OVERPASS_API_URL, {
     method: "POST",
     headers: { "Content-Type": "text/plain;charset=UTF-8" },
     body: query,
@@ -124,17 +132,17 @@ function renderPlaces(menuName, places, lat, lng) {
   if (!nearbyEl) return;
 
   if (!places.length) {
-    nearbyEl.innerHTML = `<p><strong>${menuName}</strong> 관련 주변 가게를 찾지 못했어요.</p>`;
+    nearbyEl.innerHTML = `<p><strong>${escapeHtml(menuName)}</strong> 관련 주변 가게를 찾지 못했어요.</p>`;
     return;
   }
 
   nearbyEl.innerHTML = `
-    <p><strong>${menuName}</strong> 기준 추천 ${places.length}곳 (반경 ${(SEARCH_RADIUS_METERS / 1000).toFixed(1)}km)</p>
+    <p><strong>${escapeHtml(menuName)}</strong> 기준 추천 ${places.length}곳 (반경 ${(SEARCH_RADIUS_METERS / 1000).toFixed(1)}km)</p>
     <div class="place-cards">
       ${places.map((place) => `
         <article class="place-card">
-          <h4>${place.name}</h4>
-          <p>유형: ${place.type}</p>
+          <h4>${escapeHtml(place.name)}</h4>
+          <p>유형: ${escapeHtml(place.type)}</p>
           <p>거리: 약 ${Math.round(place.distance)}m</p>
           <a href="${directionsUrl(place.name)}" target="_blank" rel="noopener noreferrer">길찾기</a>
         </article>
@@ -164,7 +172,11 @@ function findNearbyRestaurants() {
         const places = await fetchPlaces(state.selectedMenu.name, coords.latitude, coords.longitude);
         renderPlaces(state.selectedMenu.name, places, coords.latitude, coords.longitude);
       } catch (error) {
-        if (nearbyEl) nearbyEl.innerHTML = `<p>${error.message || "검색 중 오류가 발생했습니다."}</p>`;
+        const fallbackUrl = directionsUrl(`${state.selectedMenu.name} 맛집`);
+        if (nearbyEl) {
+          nearbyEl.innerHTML = `<p>${escapeHtml(error.message || "검색 중 오류가 발생했습니다.")}</p>
+          <p><a href="${fallbackUrl}" target="_blank" rel="noopener noreferrer">지도에서 ${escapeHtml(state.selectedMenu.name)} 맛집 검색하기</a></p>`;
+        }
       }
     },
     (error) => {

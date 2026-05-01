@@ -12,24 +12,23 @@
     <button id="theme-btn" onclick="toggleTheme()">🌙 다크 모드</button>
   </div>
 
-  <section class="contact-section">
-    <h2>🤝 제휴 문의</h2>
-    <form action="https://formspree.io/f/xpqkeklz" method="POST" class="contact-form">
-      <div class="form-group">
-        <label for="name">회사명 또는 성함</label>
-        <input type="text" id="name" name="name" placeholder="성함을 입력해주세요" required>
-      </div>
-      <div class="form-group">
-        <label for="email">이메일 주소</label>
-        <input type="email" id="email" name="_replyto" placeholder="example@email.com" required>
-      </div>
-      <div class="form-group">
-        <label for="message">문의 내용</label>
-        <textarea id="message" name="message" rows="5" placeholder="제휴 문의 내용을 입력해주세요" required></textarea>
-      </div>
-      <button type="submit" class="submit-btn">문의 보내기</button>
+  <main class="container">
+    <h1>🤝 제휴 문의</h1>
+    <p>아래 양식을 작성해주시면 검토 후 연락드리겠습니다.</p>
+
+    <form action="https://formspree.io/f/mqaqgbgw" method="POST" style="max-width:500px; margin:20px auto; text-align:left;">
+      <label>이름</label>
+      <input type="text" name="name" required style="width:100%; padding:10px; margin-bottom:10px;">
+
+      <label>이메일</label>
+      <input type="email" name="email" required style="width:100%; padding:10px; margin-bottom:10px;">
+
+      <label>문의 내용</label>
+      <textarea name="message" rows="5" required style="width:100%; padding:10px; margin-bottom:10px;"></textarea>
+
+      <button type="submit" class="recommend-btn">문의 보내기</button>
     </form>
-  </section>
+  </main>
 
   <script src="shared.js"></script>
 </body>

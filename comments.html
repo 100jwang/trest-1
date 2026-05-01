@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>댓글</title>
+  <title>5초 챌린지 커뮤니티</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,20 +12,51 @@
     <button id="theme-btn" onclick="toggleTheme()">🌙 다크 모드</button>
   </div>
 
-  <section class="comment-section">
-    <h2>💬 댓글</h2>
-    <div id="disqus_thread"></div>
-    <script>
-        (function() { 
-        var d = document, s = d.createElement('script');
-        s.src = 'https://what-to-eat-2.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </section>
+  <main class="community-wrap">
+    <header class="community-header">
+      <h1>🎬 5초 챌린지 커뮤니티</h1>
+      <p id="challenge-text" class="challenge-banner" aria-live="polite"></p>
+    </header>
+
+    <section id="auth-section" class="card">
+      <h2>로그인 / 회원가입</h2>
+      <form id="auth-form" class="stack-form">
+        <input id="auth-username" type="text" placeholder="아이디" required maxlength="20">
+        <input id="auth-password" type="password" placeholder="비밀번호" required minlength="4" maxlength="30">
+        <div class="row-btns">
+          <button type="submit" data-mode="login" class="recommend-btn">로그인</button>
+          <button type="submit" data-mode="signup" class="recommend-btn secondary-btn">회원가입</button>
+        </div>
+      </form>
+      <p id="auth-message" class="inline-message" aria-live="polite"></p>
+    </section>
+
+    <section id="community-section" class="card hidden">
+      <div class="community-meta">
+        <p><strong id="current-user"></strong>님 환영합니다!</p>
+        <button id="logout-btn" class="recommend-btn secondary-btn">로그아웃</button>
+      </div>
+
+      <form id="post-form" class="stack-form">
+        <label for="post-text">챌린지 한 줄 설명</label>
+        <textarea id="post-text" maxlength="120" placeholder="오늘 챌린지 수행 내용을 적어주세요." required></textarea>
+
+        <label for="post-video">5초 영상 업로드 (촬영/파일 선택)</label>
+        <input id="post-video" type="file" accept="video/*" capture="user" required>
+        <small>권장: 5초 이내 영상. 브라우저 환경에 따라 촬영 버튼 노출이 다를 수 있습니다.</small>
+
+        <button type="submit" class="recommend-btn">업로드</button>
+      </form>
+      <p id="post-message" class="inline-message" aria-live="polite"></p>
+
+      <section>
+        <h3>커뮤니티 피드</h3>
+        <div id="feed-list" class="feed-list"></div>
+      </section>
+    </section>
+  </main>
 
   <script src="shared.js"></script>
+  <script src="comments.js"></script>
 </body>
 </html>
