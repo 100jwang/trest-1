@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>오늘 점심 뭐 먹지?</title>
+  <title>오늘 저녁 뭐 먹지?</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,13 +12,24 @@
     <button id="theme-btn" onclick="toggleTheme()">🌙 다크 모드</button>
   </div>
 
-  <div class="container">
-    <h1>🍱 오늘 점심 뭐 먹지?</h1>
-    <button class="recommend-btn" onclick="recommendMenu()">점심 추천 받기</button>
+  <main class="container">
+    <h1>🍱 오늘 저녁 뭐 먹지?</h1>
+    <button class="recommend-btn" onclick="recommendMenu()">저녁 추천 받기</button>
 
-    <div id="result"></div>
-    <div class="emoji" id="emoji"></div>
-  </div>
+    <p id="result" aria-live="polite"></p>
+    <div class="emoji" id="emoji" aria-hidden="true"></div>
+
+    <button
+      id="find-nearby-btn"
+      class="recommend-btn secondary-btn"
+      onclick="findNearbyRestaurants()"
+      disabled
+    >
+      📍 이 메뉴 근처 맛집 찾기
+    </button>
+
+    <section id="nearby-result" class="nearby-result" aria-live="polite"></section>
+  </main>
 
   <script src="shared.js"></script>
   <script src="main.js"></script>
