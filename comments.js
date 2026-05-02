@@ -165,9 +165,15 @@ el.authForm.addEventListener("submit", async (event) => {
     }
     el.authForm.reset();
   } catch (error) {
-    let msg = "오류가 발생했습니다.";
+    console.error("인증 상세 오류:", error);
+    let msg = `오류 발생 (${error.code})`; // 에러 코드를 직접 표시
+    
     if (error.code === "auth/email-already-in-use") msg = "이미 존재하는 아이디입니다.";
-    if (error.code === "auth/wrong-password" || error.code === "auth/user-not-found") msg = "로그인 정보가 올바르지 않습니다.";
+    else if (error.code === "auth/wrong-password" || error.code === "auth/user-not-found" || error.code === "auth/invalid-credential") msg = "로그인 정보가 올바르지 않습니다.";
+    else if (error.code === "auth/unauthorized-domain") msg = "이 도메인은 Firebase에 등록되지 않았습니다. (승인된 도메인 추가 필요)";
+    else if (error.code === "auth/operation-not-allowed") msg = "이메일 로그인이 비활성화되어 있습니다. (콘솔 확인 필요)";
+    else msg = `오류: ${error.message}`;
+    
     setMessage(el.authMessage, msg, true);
   }
 });
